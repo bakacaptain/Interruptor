@@ -16,8 +16,8 @@ public class FileUtilImpl implements FileUtil
   @Override
   public Collection<FileStatDTO> discoverDir(String dir) {
     File directory = new File(dir);
-    File[] filesInDir = Objects.requireNonNull(directory.listFiles());
-    return Arrays.stream(filesInDir)
+    File[] filesInDir = directory.listFiles();
+    return Arrays.stream(Objects.requireNonNull(filesInDir))
       .filter(Objects::nonNull)
       .map(file -> new FileStatDTO(file.getName(), file.getPath()))
       .collect(Collectors.toList());

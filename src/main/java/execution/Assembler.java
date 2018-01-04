@@ -1,36 +1,76 @@
 package execution;
 
-import io.audio.impl.MP3AudioController;
-import io.file.FileStatDTO;
-import io.file.FileUtil;
-import io.file.impl.FileUtilImpl;
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import ui.controller.LibraryController;
+import ui.controller.SettingController;
 
-import java.util.Collection;
+import java.io.IOException;
 
-public class Assembler extends Application
+/**
+ * Assembles the application for execution.
+ * Also seen as a bootstrap or "the main".
+ */
+public class Assembler extends Application implements SceneRouter
 {
-  @Override
-  public void start(Stage stage) {
-    Group root = new Group();
-    Scene scene = new Scene(root, 500, 500, Color.BLACK);
-    stage.setTitle("The title");
-    stage.setScene(scene);
-    stage.show();
-
-    FileUtil util = new FileUtilImpl();
-    Collection<FileStatDTO> medias = util.discoverDir("resources");
-
-    MP3AudioController controller = new MP3AudioController();
-    controller.queue(medias.iterator().next());
-    controller.play();
-  }
+  private static final String APP_TITLE = "Interruptor";
+  private Stage stage;
 
   public static void main(String... args) {
     launch(args);
+  }
+
+  @Override
+  public void start(Stage stage) {
+    this.stage = stage;
+    this.stage.setTitle(APP_TITLE);
+
+    gotoMain();
+  }
+
+  @Override
+  public void gotoMain() {
+    try {
+      // Load root layout from fxml file.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("../ui/view/Library.fxml"));
+      Pane layout = loader.load();
+      LibraryController controller = loader.getController();
+      controller.setSceneRouter(this);
+
+      // Show the scene containing the root layout.
+      Scene scene = new Scene(layout);
+      stage.setScene(scene);
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void gotoSettings() {
+    try {
+      // Load root layout from fxml file.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("../ui/view/Setting.fxml"));
+      Pane layout = loader.load();
+      SettingController controller = loader.getController();
+      controller.setSceneRouter(this);
+
+      // Show the scene containing the root layout.
+      Scene scene = new Scene(layout);
+      stage.setScene(scene);
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void gotoHelp() {
+
   }
 }

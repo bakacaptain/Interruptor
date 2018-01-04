@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controller.LibraryController">
+    <center>
+        <ListView fx:id="listView" layoutX="14.0" layoutY="33.0" prefHeight="356.0" prefWidth="405.0" />
+    </center>
+    <top>
+        <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button fx:id="reloadButton" layoutX="497.0" layoutY="351.0" mnemonicParsing="false" onAction="#handleOnReload" text="Reload" />
+                <Button fx:id="stopButton" layoutX="447.0" layoutY="351.0" mnemonicParsing="false" onAction="#handleOnStopPlaying" text="Stop" />
+            <Button mnemonicParsing="false" onAction="#handleOnGotoSetting" text="Settings" />
+            <Button mnemonicParsing="false" text="Help" />
+            </buttons>
+        </ButtonBar>
+    </top>
+
+</BorderPane>

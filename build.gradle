@@ -7,10 +7,32 @@ targetCompatibility = 1.8
 version = '1.0.0'
 
 mainClassName = 'execution.Assembler'
+
 jar {
+    doFirst {
+        // Copies all fxml files
+        copy {
+            from 'src/main/java/'
+            into 'build/classes/java/main'
+            include '**/*.fxml'
+        }
+    }
+
     manifest {
         attributes 'Implementation-Title': 'Interruptor',
                 'Implementation-Version': version
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java"]
+            includes = ["**/*.java"]
+        }
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
     }
 }
 
